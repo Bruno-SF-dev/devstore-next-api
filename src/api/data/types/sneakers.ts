@@ -1,4 +1,9 @@
-export type Category = 'basketball' | 'lifestyle' | 'running' | 'skateboarding';
+export type Category =
+  | 'basketball'
+  | 'lifestyle'
+  | 'running'
+  | 'skateboarding'
+  | 'other';
 export type Brand =
   | 'Air Jordan'
   | 'Champion'
@@ -11,35 +16,35 @@ export type Gender = 'men' | 'youth' | 'women';
 
 export interface Sneaker {
   box_condition: string;
-  brand_name: Brand[];
-  brand_logo?: string;
-  category: Category[];
+  brand_name: string;
+  brand_logo?: string | null;
+  category: string[];
   collection_slugs: string[];
   color: string;
   designer: string;
   details: string;
-  gender: Gender[];
+  gender: string[];
   grid_picture_url: string;
   has_picture: boolean;
   has_stock: boolean;
   id: number;
   keywords: string[];
   main_picture_url: string;
-  midsole?: string;
+  midsole?: string | null;
   name: string;
   nickname: string;
   original_picture_url: string;
   product_template_id: number;
-  release_date?: string;
-  release_date_unix?: number;
-  release_year?: number;
-  retail_price_cents?: number;
+  release_date?: string | null;
+  release_date_unix?: number | null;
+  release_year?: number | null;
+  retail_price_cents?: number | null;
   shoe_condition: string;
   silhouette: string;
   size_range: number[];
   sku: string;
   slug: string;
   status: string;
-  description?: string;
-  upper_material?: string;
+  description?: string | null;
+  upper_material?: string | null;
 }
