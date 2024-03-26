@@ -4,6 +4,7 @@ import { NextRequest } from 'next/server';
 import { filterByBrand } from './helpers/filter-by-brand';
 import { filterByCategory } from './helpers/filter-by-category';
 import { filterByGender } from './helpers/filter-by-gender';
+import { sortByPrice } from './helpers/sort-by';
 
 export async function GET(request: NextRequest) {
   console.log('request.nextUrl.searchParams', request.nextUrl.searchParams);
@@ -15,11 +16,16 @@ export async function GET(request: NextRequest) {
   const categoryQuery = searchParams.get('category');
   const brandQuery = searchParams.get('brand');
   const genderQuery = searchParams.get('gender');
+  const sortQuery = searchParams.get('sort') ?? '';
 
   const page = parseInt(searchParams.get('page') || '1', 10);
   const pageSize = 24;
   const startIndex = (page - 1) * pageSize;
   const endIndex = startIndex + pageSize;
+
+  if (['price_desc', 'price_asc'].includes(sortQuery)) {
+    sneakerData = sortByPrice(sneakerData, sortQuery);
+  }
 
   if (categoryQuery) {
     const categories = categoryQuery.split(',');
