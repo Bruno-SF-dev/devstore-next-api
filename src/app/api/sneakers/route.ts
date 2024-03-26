@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
   const genderQuery = searchParams.get('gender');
 
   const page = parseInt(searchParams.get('page') || '1', 10);
-  const pageSize = 10;
+  const pageSize = 24;
   const startIndex = (page - 1) * pageSize;
   const endIndex = startIndex + pageSize;
 
@@ -44,17 +44,21 @@ export async function GET(request: NextRequest) {
 
   console.log('RESPONSE JSON', {
     data: paginatedData,
-    currentPage: page,
-    nextPage,
-    prevPage,
-    totalPages,
+    pagination: {
+      currentPage: page,
+      nextPage,
+      prevPage,
+      totalPages,
+    },
   });
 
   return Response.json({
     data: paginatedData,
-    currentPage: page,
-    nextPage,
-    prevPage,
-    totalPages,
+    pagination: {
+      currentPage: page,
+      nextPage,
+      prevPage,
+      totalPages,
+    },
   });
 }
