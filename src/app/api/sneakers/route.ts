@@ -3,6 +3,7 @@ import { Sneaker } from '@/api/data/types/sneakers';
 import { NextRequest } from 'next/server';
 import { filterByBrand } from './helpers/filter-by-brand';
 import { filterByCategory } from './helpers/filter-by-category';
+import { filterByColor } from './helpers/filter-by-color';
 import { filterByGender } from './helpers/filter-by-gender';
 import { sortByPrice } from './helpers/sort-by';
 
@@ -16,6 +17,7 @@ export async function GET(request: NextRequest) {
   const categoryQuery = searchParams.get('category');
   const brandQuery = searchParams.get('brand');
   const genderQuery = searchParams.get('gender');
+  const colorQuery = searchParams.get('color');
   const sortQuery = searchParams.get('sort') ?? '';
 
   const page = parseInt(searchParams.get('page') || '1', 10);
@@ -40,6 +42,11 @@ export async function GET(request: NextRequest) {
   if (genderQuery) {
     const genres = genderQuery.split(',');
     sneakerData = filterByGender(sneakerData, genres);
+  }
+
+  if (colorQuery) {
+    const colors = colorQuery.split(',');
+    sneakerData = filterByColor(sneakerData, colors);
   }
 
   const paginatedData = sneakerData.slice(startIndex, endIndex);
